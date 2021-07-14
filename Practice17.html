@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>样式绑定</title>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    </head>
+    <style>
+        .active{
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+        .text-danger{
+            background-color: red;
+        }
+        .bg1{
+            width: 300px;
+            height: 300px;
+            background-color: aqua;
+        }
+        .bg2{
+            background-color: blue;
+        }
+        .base{
+            width: 100px;
+            height: 100px;
+        }
+        .active2{
+            background-color: chartreuse;
+        }
+        .text-danger2{
+            background-color: chocolate;
+        }
+       
+        .danger{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .success{
+            width: 100px;
+            height:100px;
+            background-color: green;
+        }
+    </style>
+    <body>
+        <div id="app">
+            <div v-bind:class="{'active':isActive,'text-danger':hasError}"></div>  
+        
+
+            <br><br>
+            <h6>可以直接绑定数据里的一个对象</h6>
+            <div v-bind:class="classObject"></div>
+        
+
+             <br><br>
+             <h6>绑定返回对象的计算属性</h6>
+             <div v-bind:class="computedClass"></div>
+
+
+             <br><br>
+             <h6>把一个数组传给 v-bind:class</h6>
+             <div v-bind:class="[activeClass,errorClass]"></div>
+
+              
+             <br><br>
+             <h6>使用三元表达式来切换列表中的 class </h6>
+             <div v-bind:class="[errorClass2,isActive ? activeClass2 : '']"></div>
+
+
+             <br><br>
+             <h6>可以在 v-bind:style 直接设置样式</h6>
+             <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">菜鸟教程</div>
+
+
+             <br><br>
+             <h6>可以直接绑定到一个样式对象，让模板更清晰</h6>
+             <div v-bind:style="styleObject">菜鸟教程</div>
+
+             <br><br>
+             <h6>v-bind:style 可以使用数组将多个样式对象应用到一个元素上</h6>
+             <div v-bind:style="[baseStyles,overridingStyles]">菜鸟教程</div>
+        </div>
+
+        <script>
+        new Vue({
+            el:'#app',
+            data:{
+                isActive:true,
+                hasError:true,
+                classObject:{
+                    bg1:true,
+                    bg2:true
+                },
+                isActive2:true,
+                error2:{
+                    value:true,
+                    type:'fatal'
+                },
+                activeClass:'active',
+                errorClass:'text-danger',
+                activeClass2:'success',
+                errorClass2:'danger',
+                activeColor:'green',
+                fontSize:30,
+                styleObject:{
+                   color:'green',
+                   fontSize:'30px'
+                },
+                baseStyles:{
+                    color:'green',
+                    fontSize:'30px'
+                },
+                overridingStyles:{
+                    'font-weight':'bold'
+                }
+            },
+            computed:{
+                computedClass:function(){
+                    return{
+                        base:true,
+                        active2:this.isActive2 && !this.error2.value,
+                        'text-danger2':this.error2.value && this.error2.type==='fatal'
+                    }
+                }
+            }
+        })
+        </script>
+    </body>
+</html>

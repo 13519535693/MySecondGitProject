@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>v-for  循环语句</title>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <!-- v-for 可以绑定数据到数组来渲染一个列表 -->
+            <ol>
+                <li v-for="site in sites">
+                    {{site.name}}
+                </li>
+            </ol>
+            
+            <!-- 为一个part -->
+            <br><br>
+            <h5>v-for 迭代对象，可以通过一个对象的属性来迭代数据:</h5>
+            <ul>
+                <li v-for="value in object">{{value}}</li>
+            </ul>
+            <h5>提供第二个参数为键名:</h5>
+            <ul>
+                <li v-for="(value,key) in object">{{key}}:{{value}}</li>
+            </ul>
+            <h5>提供第三个参数为索引：</h5>
+            <ul>
+                <li v-for="(value,key,index) in object">{{index}}.{{key}}:{{value}}</li>
+            </ul>
+
+            <!-- 为一个part -->
+            <br><br>
+            <h5>v-for 迭代整数</h5>
+            <ul>
+                <li v-for="n in 10">{{n}}</li>
+            </ul>
+
+        </div>
+
+        <script>
+         new Vue({
+             el:'#app',
+             data:{
+                 sites:[
+                     {name:"Runoob"},
+                     {name:"Google"},
+                     {name:"Taobao"},
+                 ],
+                 object:{
+                     name:"菜鸟教程",
+                     url:"http://www.runoob.com",
+                     slogan:"学的不仅是技术，更是梦想！"
+                 }
+             }
+         })
+        </script>
+    </body>
+</html>

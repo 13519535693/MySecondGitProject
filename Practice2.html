@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="vue_det">
+       <h1>site:{{site}}</h1>
+       <h1>url:{{url}}</h1>
+       <h1>{{details()}}</h1>
+    </div>
+    <script>
+        // var vm = new Vue({
+        //     el:'#vue_det',
+        //     data:{ //data用于定义属性，实例中的属性分别为：site、url、alexa
+        //         site:"菜鸟教程",
+        //         url:"www.runoob.com",
+        //         alexa:"10000"
+        //     },
+        //     methods:{   //methods 用于定义函数，通过return来返回函数值
+        //         details:function(){      //{{}} 用于输出对象属性和函数返回值
+        //             return this.site+"- 学的不仅是技术，更是梦想";
+        //         }
+        //     }
+        // })
+
+       /* //我们的数据对象
+        var data = {site:"菜鸟教程",url:"www.runoob.com",alexa:10000}
+        function details(){
+            console.log(123);
+        }
+        var vm = new Vue({
+            el: '#vue_det',
+            data:data,
+            methods:details
+        })
+        //它们引用相同的对象
+        document.write(vm.site === data.site)
+        document.write("<br>")
+        //设置属性也会影响到原始数据
+        vm.site = "Runoob"
+        document.write(data.site + "<br>")
+        //反之亦然
+        data.alexa = 1234
+        document.write(vm.alexa)
+        */
+
+        //我们的数据对象
+        var data = {site:"菜鸟教程",url:"www.runoob.com",alexa:10000}
+        function details(){
+            console.log(11);
+        }
+        var vm = new Vue({
+            el:"#vue_det",
+            data:data,
+            methods:details
+        })
+
+        document.write(vm.$data === data)  //true
+        document.write("<br>")
+        document.write(vm.$el === document.getElementById('vue_det')) //true
+    </script>
+</body>
+</html>
