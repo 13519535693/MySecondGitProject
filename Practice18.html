@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>事件处理器</title>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+           <button v-on:click="counter++">加1</button> 
+            <p>这个按钮被点击了{{counter}}次</p>
+
+            <br><br>
+            <h6>v-on 可以接收一个定义的方法来调用</h6>
+            <button v-on:click="greet">Greet</button>
+
+            <br><br>
+            <h6>直接绑定到一个方法，也可以用内联 JavaScript 语句</h6>
+            <button v-on:click="say('hi')">Say hi</button>
+            <button v-on:click="say('what')">Say what</button>
+
+
+            <br><br>
+            <h6>Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：</h6>
+            <input type="text" @keyup.alt.67="clear" v-model="text">
+        </div>
+
+        <script>
+            var app = new Vue({
+                el:"#app",
+                data:{
+                    counter:0,
+                    name:'Vue.js',
+                    text:''
+                },
+                methods:{
+                    greet:function(){
+                       alert('hello'+this.name+'!')
+                        //event 是原生的ＤＯＭ事件
+                    if(event){
+                        alert(event.target.tagName)
+                    }
+                    },
+                    say:function(message){
+                        alert(message);
+                    },
+                    clear:function(){  //清除功能  alt+c  快捷键
+                      if(this.text==null){
+                          return 
+                      }else{
+                          this.text="";
+                      }
+                    }
+                   
+                }
+            })
+            // 也可以用 JavaScript 直接调用方法
+            app.greet();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>组件-自定义事件</title>
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p>{{total}}</p>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+        
+             <br><hr>
+            <h5>data是一个函数，可以很好的维护数据，如果是对象则会影响其他实例</h5>
+            <button-counter2></button-counter2>
+            <button-counter2></button-counter2>
+            <button-counter2></button-counter2>
+
+            <br><hr>
+            <h5>自定义组件的v-model</h5>
+            <runoob-input v-model="num"></runoob-input>
+            <p>输入的数字为：{{num}}</p>
+
+            <br><hr>
+            <h5>由于 v-model 默认传的是 value，不是 checked，所以对于复选框或者单选框的组件时，我们需要使用 model 选项，model 选项可以指定当前的事件类型和传入的 props。</h5>
+            <base-checkbox v-model="lovingVue"></base-checkbox>
+            <div v-show="lovingVue">
+                如果选择框打勾我就会显示
+            </div>
+        </div>
+
+        <script>
+        var buttonCounter2Data = {
+            count:0
+        }
+        Vue.component('button-counter',{
+            template:'<button v-on:click="incrementHandler">{{counter}}</button>',
+            data:function(){
+                return{
+                    counter:0
+                }
+            },
+            methods:{
+                incrementHandler:function(){
+                    this.counter +=1;
+                    this.$emit("increment")  //$emit会自动触发父组件的increment的事件
+                }
+            }
+        })
+        Vue.component('button-counter2',{
+            template:'<button v-on:click="count++">点击了{{count}}次</button>',
+            // data是一个对象时：
+            // data:function(){
+            //     return buttonCounter2Data    //buttonCounter2Data是一个对象，返回对象，所以data是对象
+            // }
+
+            //data是一个函数时     子组件之间不会被互相影响
+            data:function(){
+                return {
+                    count:0
+                }
+            }
+        })
+        Vue.component('runoob-input',{
+            template: `
+            <p>   <!-- 包含了名为 input 的事件 -->
+              <input
+               ref="input"
+               :value="value" 
+               @input="$emit('input', $event.target.value)"
+               >
+            </p>
+            `,
+            props:['value'] //名为value的prop
+        })
+        Vue.component('base-checkbox',{
+            model:{
+                prop:'checked',
+                event:'change'  //onchange事件
+            },
+            props:{
+                checked:Boolean
+            },
+            template:`
+            <input
+              type="checkbox"
+              v-bind:checked="checked"
+              v-on:change="$emit('change',$event.target.checked)"
+            >
+            `
+        })
+        new Vue({
+            el:'#app',
+            data:{
+                total:0,
+                num:100,
+                lovingVue:true
+            },
+            methods:{
+                incrementTotal:function(){
+                    this.total+=1;
+                }
+            }
+        })  
+        </script>
+    </body>
+</html>
